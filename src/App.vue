@@ -1,26 +1,36 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <component :is='layout'>
+      <router-view></router-view>
+    </component>
+  </div>
+  
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import EmptyLayout from './layout/EmptyLayout';
+import MainLayout from './layout/MainLayout'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+   metaInfo: {
+      // title will be injected into parent titleTemplate
+      title: 'About Us'
+    },
+  components : {
+    EmptyLayout, MainLayout
+  },
+  computed: {
+    layout() {
+      console.log(this.$route.meta);
+      return (this.$route.meta.layout || 'empty') + '-layout'
+    }
+  },
+
+  
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import '~materialize-css/dist/css/materialize.min.css';
+@import './assets/index.css';
+
 </style>
